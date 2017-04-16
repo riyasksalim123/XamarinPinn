@@ -62,14 +62,21 @@ namespace App10
 
         private async void Vvvvvvvvv_Click(object sender, EventArgs e)
         {
-            string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+ longi+"&types=point_of_interest&radius=50000&sensor=false&key=AIzaSyCrMlsuYQlYLpiwHDes4gsxJlu2IcoyJ7w";
+            string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+ longi+"&types=point_of_interest&radius=100000&sensor=false&key=AIzaSyCrMlsuYQlYLpiwHDes4gsxJlu2IcoyJ7w";
 
 
-            JsonValue json = await FetchWeatherAsync(url);
-            ParseAndDisplay(json);
+            Rootobject Data = await FetchWeatherAsync(url);
+
+           
+
+            var contactsAdapter = new StreamListAdapter(this, Data.results);
+            var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
+            contactsListView.Adapter = contactsAdapter;
+
+            // ParseAndDisplay(json);
         }
 
-        private async Task<string> FetchWeatherAsync(string url)
+        private async Task<Rootobject> FetchWeatherAsync(string url)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
             request.ContentType = "application/json";
@@ -81,35 +88,21 @@ namespace App10
                 var rawJson = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 Rootobject Data;
                 // var json = JObject.Parse(rawJson);  //Turns your raw string into a key value lookup
-                try {
-
+                
                      Data = JsonConvert.DeserializeObject<Rootobject>(rawJson);
 
-                    var contactsAdapter = new StreamListAdapter(this, Data.results);
-                    var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
-                    contactsListView.Adapter = contactsAdapter;
-
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                
-                
-                
-                // string licsene_value = json["results"].ToObject<string>();
-
-              
-                //List<Result> Res = new List<Result>();
-
-
-                //Res = Data.results.ToList();
+                    return Data;
+                   
+                    //var contactsAdapter = new StreamListAdapter(this, Data.results);
+                    //var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
+                    //contactsListView.Adapter = contactsAdapter;
 
 
              
-
-                return "";
+                
+                
+               
+              
             
             }
         }
