@@ -22,41 +22,52 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using App10.Adapter;
+using System.Threading;
 
 namespace App10
 {
-    [Activity(Label = "vvvvvvvvv")]
-    public class vvvvvvvvv : Activity
+    [Activity(Label = "Point of Interests")]
+    public class PointOfInterest : Activity
     {
 
-        static readonly string TAG = "X:" + typeof(vvvvvvvvv).Name;
+       // static readonly string TAG = "X:" + typeof(PointOfInterest).Name;
         TextView _addressText;
-        Location _currentLocation;
-        LocationManager _locationManager;
-        Position p;
+        TextView poi;
+        //TextView location_text;
+        Button get_address_button;
+        Button get_POI;
+        //Location _currentLocation;
+        //LocationManager _locationManager;
+        //Position p;
         double lat;
         double longi;
-        string _locationProvider;
+       // string _locationProvider;
         TextView _locationText;
-        LocationManager locMgr;
-        string locationProvider;
+       // LocationManager locMgr;
+       // string locationProvider;
+      //  private ProgressBar mProgressBar;
 
 
 
       
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.layout1);
-            AppDomain.CurrentDomain.UnhandledException += ErrorHandler.CurrentDomainOnUnhandledException;
-            TaskScheduler.UnobservedTaskException += ErrorHandler.TaskSchedulerOnUnobservedTaskException;
+            SetContentView(Resource.Layout.POI);
+           // AppDomain.CurrentDomain.UnhandledException += ErrorHandler.CurrentDomainOnUnhandledException;
+           // TaskScheduler.UnobservedTaskException += ErrorHandler.TaskSchedulerOnUnobservedTaskException;
             lat = Intent.GetDoubleExtra("latitude", 0.0);
             longi = Intent.GetDoubleExtra("longitude", 0.0);
             _addressText = FindViewById<TextView>(Resource.Id.address_text);
             _locationText = FindViewById<TextView>(Resource.Id.location_text);
+            poi = FindViewById<TextView>(Resource.Id.poi);
+            get_address_button = FindViewById<Button>(Resource.Id.get_address_button);
+
+            get_POI = FindViewById<Button>(Resource.Id.get_POI);
             FindViewById<TextView>(Resource.Id.get_address_button).Click += AddressButton_OnClick;
             FindViewById<TextView>(Resource.Id.get_POI).Click += Vvvvvvvvv_Click;
+
+
 
         }
 
@@ -64,7 +75,14 @@ namespace App10
         {
             string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+ longi+"&types=point_of_interest&radius=100000&sensor=false&key=AIzaSyCrMlsuYQlYLpiwHDes4gsxJlu2IcoyJ7w";
 
-
+            var progressDialog = ProgressDialog.Show(this, "Please wait...", "Checking POI of the Location", true);
+            new Thread(new ThreadStart(delegate
+            {
+                //LOAD METHOD TO GET ACCOUNT INFO
+               // RunOnUiThread(() => Toast.MakeText(this, "Toast within progress dialog.", ToastLength.Long).Show());
+                //HIDE PROGRESS DIALOG
+                //  RunOnUiThread(() => progressDialog.Hide());
+            })).Start();
             Rootobject Data = await FetchWeatherAsync(url);
 
            
@@ -72,6 +90,12 @@ namespace App10
             var contactsAdapter = new StreamListAdapter(this, Data.results);
             var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
             contactsListView.Adapter = contactsAdapter;
+            progressDialog.Hide();
+            _addressText.Visibility = ViewStates.Gone;
+            _locationText.Visibility = ViewStates.Gone;
+            get_address_button.Visibility= ViewStates.Gone;
+            get_POI.Visibility = ViewStates.Gone;
+            poi.Visibility = ViewStates.Gone;
 
             // ParseAndDisplay(json);
         }
@@ -93,31 +117,21 @@ namespace App10
 
                     return Data;
                    
-                    //var contactsAdapter = new StreamListAdapter(this, Data.results);
-                    //var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
-                    //contactsListView.Adapter = contactsAdapter;
-
-
-             
-                
-                
-               
-              
             
             }
         }
 
-        private void ParseAndDisplay(JsonValue json)
-        {
+        //private void ParseAndDisplay(JsonValue json)
+        //{
 
-            TextView poi = FindViewById<TextView>(Resource.Id.poi);
+        //    TextView poi = FindViewById<TextView>(Resource.Id.poi);
 
-            JsonValue weatherResults = json["weatherObservation"];
+        //    JsonValue weatherResults = json["weatherObservation"];
 
-            poi.Text = weatherResults["stationName"];
+        //    poi.Text = weatherResults["stationName"];
 
 
-        }
+        //}
 
         async void AddressButton_OnClick(object sender, EventArgs eventArgs)
         {

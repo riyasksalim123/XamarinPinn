@@ -20,6 +20,7 @@ using Android.Content;
 using System.Net.Http;
 using Geolocator.Plugin.Abstractions;
 using RestSharp;
+using System.Threading;
 
 namespace App10
 {
@@ -27,7 +28,7 @@ namespace App10
     public class MainActivity : Activity
     {
         Button btn;
-        public string ff;
+      //  public string ff;
         Position position ;
         protected override async void OnCreate(Bundle bundle)
         {
@@ -38,8 +39,7 @@ namespace App10
              btn = (Button)FindViewById(Resource.Id.button1);
             btn.Click += delegate
             {
-               // AlertCenter.Default.PostMessage("Knock knock!", "Who's thcccccccccccccdgfeghtrhrthrwgqwrgqewrgesgserere?", Resource.Drawable.Icon);
-                var activity2 = new Intent(this, typeof(vvvvvvvvv));
+                var activity2 = new Intent(this, typeof(PointOfInterest));
                 activity2.PutExtra("latitude", position.Latitude);
                 activity2.PutExtra("longitude", position.Longitude);
                 StartActivity(activity2);
@@ -47,8 +47,15 @@ namespace App10
             };
             AlertCenter.Default.Init(Application);
             AlertCenter.Default.BackgroundColor = Android.Graphics.Color.Red;
-      
 
+            var progressDialog = ProgressDialog.Show(this, "Please wait...", "lOCATING PLACE...", true);
+            new Thread(new ThreadStart(delegate
+            {
+                //LOAD METHOD TO GET ACCOUNT INFO
+              //  RunOnUiThread(() => Toast.MakeText(this, "Toast within progress dialog.", ToastLength.Long).Show());
+                //HIDE PROGRESS DIALOG
+                //  RunOnUiThread(() => progressDialog.Hide());
+            })).Start();
 
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
@@ -57,14 +64,14 @@ namespace App10
 
 
             //AlertCenter.Default.PostMessage("Knock knock!", "Position Status: { 0} " + position.Timestamp + "", Resource.Drawable.Icon);
-            //AlertCenter.Default.PostMessage("Knock knock!", "Position Latitude: { 0} " + position.Latitude + "", Resource.Drawable.Icon);
+            AlertCenter.Default.PostMessage("Found Location", "Position Latitude: "+position.Latitude+" and Position Longitude : "+position.Longitude+"", Resource.Drawable.Icon);
             //AlertCenter.Default.PostMessage("Knock knock!", "Position Longitude: { 0} " + position.Longitude + "", Resource.Drawable.Icon);
 
             CrossTextToSpeech.Current.Speak("Your Current Latitude is " + position.Latitude);
             //var a = CrossTextToSpeech.Current.GetInstalledLanguages();
+            progressDialog.Hide();
 
-
-           // GeocodeData gdata = new GeocodeData();
+            // GeocodeData gdata = new GeocodeData();
 
 
 
@@ -72,48 +79,43 @@ namespace App10
 
             // btn.Text = gdata.Address;
 
-          
+
         }
        
-        public async void RetrieveFormatedAddress(string lat, string lng,GeocodeData g)
-        {
+        //public async void RetrieveFormatedAddress(string lat, string lng,GeocodeData g)
+        //{
 
-            string baseUri = "http://maps.googleapis.com/maps/api/" + "geocode/xml?latlng={0},{1}&sensor=false";
+        //    string baseUri = "http://maps.googleapis.com/maps/api/" + "geocode/xml?latlng={0},{1}&sensor=false";
 
-            string requestUri = string.Format(baseUri, lat, lng);
+        //    string requestUri = string.Format(baseUri, lat, lng);
 
-            using (WebClient wc = new WebClient())
-            {
+        //    using (WebClient wc = new WebClient())
+        //    {
             
-              wc.DownloadStringCompleted += ((s, e) => wc_DownloadStringCompleted(s, e,g));
-                wc.DownloadStringAsync(new Uri(requestUri));
+        //      wc.DownloadStringCompleted += ((s, e) => wc_DownloadStringCompleted(s, e,g));
+        //        wc.DownloadStringAsync(new Uri(requestUri));
 
             
-            }
+        //    }
 
-           
+        //}
 
-           
+        //public static string wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e,GeocodeData g)
+        //{
+        //    var xmlElm = System.Xml.Linq.XElement.Parse(e.Result);
 
+        //    var status = (from elm in xmlElm.Descendants() where elm.Name == "status" select elm).FirstOrDefault();
 
-        }
-
-        public static string wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e,GeocodeData g)
-        {
-            var xmlElm = System.Xml.Linq.XElement.Parse(e.Result);
-
-            var status = (from elm in xmlElm.Descendants() where elm.Name == "status" select elm).FirstOrDefault();
-
-            if (status.Value.ToLower() == "ok")
-            {
-              return  (from elm in xmlElm.Descendants() where elm.Name == "formatted_address" select elm.Value).FirstOrDefault();
+        //    if (status.Value.ToLower() == "ok")
+        //    {
+        //      return  (from elm in xmlElm.Descendants() where elm.Name == "formatted_address" select elm.Value).FirstOrDefault();
             
-            }
-            else
-            {
-                return "";
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        return "";
+        //    }
+        //}
 
 
 
@@ -143,7 +145,7 @@ namespace App10
 
         // Get the latitude and longitude entered by the user and create a query.
         //string url = "http://api.geonames.org/findNearByWeatherJSON?lat=" + position.Latitude + "&lng=" + position.Longitude + "&username=demo";
-        string url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD-PXZ1TzmPOXTfZ-UaXT6lgi_kpMJmswg";
+      //  string url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD-PXZ1TzmPOXTfZ-UaXT6lgi_kpMJmswg";
 
 
         //XmlDocument xDoc = new XmlDocument();
@@ -175,10 +177,10 @@ namespace App10
     }
 
 
-    public class GeocodeData
-    {
-        public string Address { get; set; }
-    }
+    //public class GeocodeData
+    //{
+    //    public string Address { get; set; }
+    //}
     // Gets weather data from the passed URL.
     //private async Task<JsonValue> FetchWeatherAsync(string url)
     //{
