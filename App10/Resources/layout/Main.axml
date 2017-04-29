@@ -10,57 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button1" />
-  <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/txtLocation"
-       android:width="200dp"
-       android:layout_marginRight="0dp"
-       android:layout_gravity="right"
-       android:gravity="left"
-       android:layout_alignParentRight="true" />
-  <TextView
-        android:text="Location :"
-        android:layout_width="60.2dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_toLeftOf="@id/txtLocation"
-        android:layout_alignTop="@id/txtLocation"
-        android:width="100dp"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentLeft="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtLocation"
-        android:id="@+id/txtAddress"
+        android:id="@+id/txtLocation"
         android:width="200dp"
+        android:layout_marginRight="0dp"
+        android:layout_gravity="right"
+        android:gravity="left"
         android:layout_alignParentRight="true" />
-    <TextView
-        android:text="Address :"
-        android:layout_width="60.2dp"
+    <ImageButton
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_toLeftOf="@id/txtAddress"
-        android:layout_below="@id/txtLocation"
-        android:width="100dp"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentLeft="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtAddress"
-        android:id="@+id/txtRemarks"
-        android:width="200dp"
-        android:layout_alignParentRight="true" />
-    <TextView
-        android:text="Remarks :"
-        android:layout_width="60.2dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_toLeftOf="@id/txtRemarks"
-        android:layout_below="@id/txtAddress"
-        android:width="100dp"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentLeft="true" />
+        android:id="@+id/FacebookButton" />
 </LinearLayout>

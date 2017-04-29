@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-  <ImageView
-      android:id="@+id/ContactImage"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_margin="5dp" 
-      android:src="@color/common_google_signin_btn_text_dark_default"/>
-  <TextView
-      android:id="@+id/ContactName"
-      android:layout_width="wrap_content"
-      android:layout_height="90dp"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      android:layout_marginLeft="5dp" />
-  
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!--<ImageView
+        android:id="@+id/ContactImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp" />-->
+    <TextView
+        android:id="@+id/ContactName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginLeft="5dp" android:textColor="#000000" />
 </LinearLayout>

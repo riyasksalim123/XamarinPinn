@@ -172,7 +172,7 @@
     <AndroidResource Include="Resources\layout\POI.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ContactListItem.xml">
+    <AndroidResource Include="Resources\layout\ContactListItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

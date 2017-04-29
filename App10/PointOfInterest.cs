@@ -78,10 +78,7 @@ namespace App10
             var progressDialog = ProgressDialog.Show(this, "Please wait...", "Checking POI of the Location", true);
             new Thread(new ThreadStart(delegate
             {
-                //LOAD METHOD TO GET ACCOUNT INFO
-               // RunOnUiThread(() => Toast.MakeText(this, "Toast within progress dialog.", ToastLength.Long).Show());
-                //HIDE PROGRESS DIALOG
-                //  RunOnUiThread(() => progressDialog.Hide());
+               
             })).Start();
             Rootobject Data = await FetchWeatherAsync(url);
 
@@ -97,7 +94,7 @@ namespace App10
             get_POI.Visibility = ViewStates.Gone;
             poi.Visibility = ViewStates.Gone;
 
-            // ParseAndDisplay(json);
+          
         }
 
         private async Task<Rootobject> FetchWeatherAsync(string url)
@@ -121,17 +118,6 @@ namespace App10
             }
         }
 
-        //private void ParseAndDisplay(JsonValue json)
-        //{
-
-        //    TextView poi = FindViewById<TextView>(Resource.Id.poi);
-
-        //    JsonValue weatherResults = json["weatherObservation"];
-
-        //    poi.Text = weatherResults["stationName"];
-
-
-        //}
 
         async void AddressButton_OnClick(object sender, EventArgs eventArgs)
         {

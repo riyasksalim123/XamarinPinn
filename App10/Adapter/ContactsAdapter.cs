@@ -38,15 +38,16 @@ namespace App10.Adapter
                     view = context.LayoutInflater.Inflate(Resource.Layout.ContactListItem, null);
 
                 view.FindViewById<TextView>(Resource.Id.ContactName).Text = items[position].name;
-
+                var txt = view.FindViewById<TextView>(Resource.Id.ContactName).Text;
+               
               //  view.FindViewById<TextView>(Resource.Id.location_text).Text = items[position].vicinity;
 
-                var imageView = view.FindViewById<ImageView>(Resource.Id.ContactImage);
+              //  var imageView = view.FindViewById<ImageView>(Resource.Id.ContactImage);
 
                 //int resourceId = (int)typeof(Resource.Drawable).GetField("icon").GetVa‌​lue(null);
                 //imageView.SetImageResource(resourceId);
-                Android.Net.Uri url = Android.Net.Uri.Parse(items[position].icon);
-                imageView.SetImageURI(url);
+           //     Android.Net.Uri url = Android.Net.Uri.Parse(items[position].icon);
+             //   imageView.SetImageURI(url);
 
 
                 return view;
