@@ -16,12 +16,13 @@ using System.Net;
 using Android.Views.InputMethods;
 using System.Text;
 using App10.Adapter;
+using Android.Gms.Maps;
 
 namespace App10
 {
     [Activity(Label = "GoogleMapPlaceAPI", MainLauncher = true )]
 
-    public class tedt : Activity
+    public class tedt : Activity,IOnMapReadyCallback
     {
 
         const string strAutoCompleteGoogleApi = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
@@ -47,7 +48,7 @@ namespace App10
             txtSearch.ItemClick += AutoCompleteOption_Click;
             txtSearch.Hint = "Enter source  ";
             MapsInitializer.Initialize(this);
-       
+            setUpMap();
 
             //mapFrag = (MapFragment)FragmentManager.FindFragmentById(Resource.Id.map);
             // //map = mapFrag.GetMapAsync();
@@ -86,6 +87,14 @@ namespace App10
 
         }
 
+        private void setUpMap()
+        {
+            if (map == null)
+            {
+                FragmentManager.FindFragmentById<MapFragment>(Resource.Id.map).GetMapAsync(this);
+            }
+        }
+
         async void AutoCompleteOption_Click(object sender, AdapterView.ItemClickEventArgs e)
         {
             //to soft keyboard hide
@@ -109,7 +118,7 @@ namespace App10
                     GoogleMapPlaceAPI.GeoCodeJSONClass objGeoCodeJSONClass = JsonConvert.DeserializeObject<GoogleMapPlaceAPI.GeoCodeJSONClass>(strResult);
                     LatLng Position = new LatLng(objGeoCodeJSONClass.results[0].geometry.location.lat, objGeoCodeJSONClass.results[0].geometry.location.lng);
                     updateCameraPosition(Position);
-                    //MarkOnMap("MyLocation", Position);
+                    MarkOnMap("MyLocation", Position);
                 }
             }
             catch (Exception ex)
@@ -175,6 +184,11 @@ namespace App10
             }
             return strResultData;
 
+        }
+
+        public void OnMapReady(GoogleMap googleMap)
+        {
+            this.map = googleMap;
         }
     }
 

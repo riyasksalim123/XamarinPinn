@@ -2062,6 +2062,9 @@ namespace App10
 			// aapt resource value: 0x7f0a007c
 			public const int location_text = 2131361916;
 			
+			// aapt resource value: 0x7f0a0083
+			public const int map = 2131361923;
+			
 			// aapt resource value: 0x7f0a006b
 			public const int media_actions = 2131361899;
 			
