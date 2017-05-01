@@ -24,10 +24,11 @@ using System.Threading;
 
 namespace App10
 {
-    [Activity(Label = "App10", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "App10", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         Button btn;
+        Button GoogleButton;
         ImageButton FbBtn;
      
         Position position ;
@@ -36,7 +37,7 @@ namespace App10
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
-
+            GoogleButton= (Button)FindViewById(Resource.Id.Autocomplete);
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
             FbBtn.Click += FbBtn_Click;
@@ -47,6 +48,7 @@ namespace App10
                 activity2.PutExtra("longitude", position.Longitude);
                 StartActivity(activity2);
             };
+            GoogleButton.Click += GoogleButton_Click;
             AlertCenter.Default.Init(Application);
             AlertCenter.Default.BackgroundColor = Android.Graphics.Color.Red;
 
@@ -67,6 +69,13 @@ namespace App10
             CrossTextToSpeech.Current.Speak("Your Current Latitude is " + position.Latitude);
             progressDialog.Hide();
 
+        }
+
+        private void GoogleButton_Click(object sender, EventArgs e)
+        {
+            var activity2 = new Intent(this, typeof(GoogleAutoCompleate));
+          
+            StartActivity(activity2);
         }
 
         private void FbBtn_Click(object sender, EventArgs e)

@@ -24,4 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/FacebookButton" />
+  <Button
+       android:text="Google Autocomplete"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/Autocomplete" />
 </LinearLayout>

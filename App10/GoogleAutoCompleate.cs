@@ -16,13 +16,13 @@ using System.Net;
 using Android.Views.InputMethods;
 using System.Text;
 using App10.Adapter;
-using Android.Gms.Maps;
+
 
 namespace App10
 {
-    [Activity(Label = "GoogleMapPlaceAPI", MainLauncher = true )]
+    [Activity(Label = "GoogleMapPlaceAPI", MainLauncher = false )]
 
-    public class tedt : Activity,IOnMapReadyCallback
+    public class GoogleAutoCompleate : Activity,IOnMapReadyCallback
     {
 
         const string strAutoCompleteGoogleApi = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
@@ -43,7 +43,7 @@ namespace App10
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.test);
+            SetContentView(Resource.Layout.AutoCompleateGoogle);
             txtSearch = (AutoCompleteTextView)FindViewById(Resource.Id.txtTextSearch);
             txtSearch.ItemClick += AutoCompleteOption_Click;
             txtSearch.Hint = "Enter source  ";
@@ -118,7 +118,7 @@ namespace App10
                     GoogleMapPlaceAPI.GeoCodeJSONClass objGeoCodeJSONClass = JsonConvert.DeserializeObject<GoogleMapPlaceAPI.GeoCodeJSONClass>(strResult);
                     LatLng Position = new LatLng(objGeoCodeJSONClass.results[0].geometry.location.lat, objGeoCodeJSONClass.results[0].geometry.location.lng);
                     updateCameraPosition(Position);
-                    MarkOnMap("MyLocation", Position);
+                    MarkOnMap(txtSearch.Text, Position);
                 }
             }
             catch (Exception ex)
