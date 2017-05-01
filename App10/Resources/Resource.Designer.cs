@@ -2236,6 +2236,9 @@ namespace App10
 			// aapt resource value: 0x7f0a0063
 			public const int txtLocation = 2131361891;
 			
+			// aapt resource value: 0x7f0a0082
+			public const int txtTextSearch = 2131361922;
+			
 			// aapt resource value: 0x7f0a0008
 			public const int up = 2131361800;
 			
@@ -2441,6 +2444,9 @@ namespace App10
 			
 			// aapt resource value: 0x7f030031
 			public const int support_simple_spinner_dropdown_item = 2130903089;
+			
+			// aapt resource value: 0x7f030032
+			public const int test = 2130903090;
 			
 			static Layout()
 			{

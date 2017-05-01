@@ -24,7 +24,7 @@ using System.Threading;
 
 namespace App10
 {
-    [Activity(Label = "App10", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "App10", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         Button btn;
