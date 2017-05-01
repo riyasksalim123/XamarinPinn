@@ -80,7 +80,7 @@ namespace App10
             {
                
             })).Start();
-            Rootobject Data = await FetchWeatherAsync(url);
+            Rootobject1 Data = await FetchWeatherAsync(url);
 
            
 
@@ -97,7 +97,7 @@ namespace App10
           
         }
 
-        private async Task<Rootobject> FetchWeatherAsync(string url)
+        private async Task<Rootobject1> FetchWeatherAsync(string url)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
             request.ContentType = "application/json";
@@ -107,10 +107,10 @@ namespace App10
             {
 
                 var rawJson = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                Rootobject Data;
+                Rootobject1 Data;
                 // var json = JObject.Parse(rawJson);  //Turns your raw string into a key value lookup
                 
-                     Data = JsonConvert.DeserializeObject<Rootobject>(rawJson);
+                     Data = JsonConvert.DeserializeObject<Rootobject1>(rawJson);
 
                     return Data;
                    
@@ -157,7 +157,7 @@ namespace App10
 
 
 
-public class Rootobject
+public class Rootobject1
 {
     public object[] html_attributions { get; set; }
     public string next_page_token { get; set; }

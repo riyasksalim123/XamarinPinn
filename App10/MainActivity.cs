@@ -30,7 +30,7 @@ namespace App10
         Button btn;
         Button GoogleButton;
         ImageButton FbBtn;
-     
+        Button ClarfiaiBtn;
         Position position ;
         protected override async void OnCreate(Bundle bundle)
         {
@@ -40,6 +40,8 @@ namespace App10
             GoogleButton= (Button)FindViewById(Resource.Id.Autocomplete);
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
+            ClarfiaiBtn = (Button)FindViewById(Resource.Id.Clarifaibtn);
+            ClarfiaiBtn.Click += ClarfiaiBtn_Click;
             FbBtn.Click += FbBtn_Click;
             btn.Click += delegate
             {
@@ -69,6 +71,13 @@ namespace App10
             CrossTextToSpeech.Current.Speak("Your Current Latitude is " + position.Latitude);
             progressDialog.Hide();
 
+        }
+
+        private void ClarfiaiBtn_Click(object sender, EventArgs e)
+        {
+            var activity2 = new Intent(this, typeof(ClarifaiActivity));
+
+            StartActivity(activity2);
         }
 
         private void GoogleButton_Click(object sender, EventArgs e)
