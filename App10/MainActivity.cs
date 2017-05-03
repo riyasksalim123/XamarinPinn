@@ -24,7 +24,7 @@ using System.Threading;
 
 namespace App10
 {
-    [Activity(Label = "App10", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         Button btn;
@@ -36,8 +36,8 @@ namespace App10
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-
-            GoogleButton= (Button)FindViewById(Resource.Id.Autocomplete);
+           
+                GoogleButton = (Button)FindViewById(Resource.Id.Autocomplete);
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
             ClarfiaiBtn = (Button)FindViewById(Resource.Id.Clarifaibtn);
@@ -66,7 +66,7 @@ namespace App10
              position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
 
 
-            AlertCenter.Default.PostMessage("Found Location", "Position Latitude: "+position.Latitude+" and Position Longitude : "+position.Longitude+"", Resource.Drawable.Icon);
+            AlertCenter.Default.PostMessage("Found Location", "Position Latitude: "+position.Latitude+" and Position Longitude : "+position.Longitude+"", Resource.Drawable.abc_btn_check_material);
 
             CrossTextToSpeech.Current.Speak("Your Current Latitude is " + position.Latitude);
             progressDialog.Hide();

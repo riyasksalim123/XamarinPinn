@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using Android.App;
 using Android.Content;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Gms.Maps;
@@ -26,15 +21,12 @@ namespace App10
     {
 
         const string strAutoCompleteGoogleApi = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
-        //browser key for place webservice
         const string strGoogleApiKey = "AIzaSyAq1k0JIsGu8iEUdcjOjMt11c42x_t2WOo";
         const string strGeoCodingUrl = "https://maps.googleapis.com/maps/api/geocode/json";
         AutoCompleteTextView txtSearch;
-        MapFragment mapFrag;
         GoogleMap map;
         ArrayAdapter adapter = null;
-         GoogleMapClass objMapClass;
-       // GeoCodeJSONClass objGeoCodeJSONClass;
+        GoogleMapClass objMapClass;
         string autoCompleteOptions;
         string[] strPredictiveText;
         int index = 0;
@@ -50,10 +42,7 @@ namespace App10
             MapsInitializer.Initialize(this);
             setUpMap();
 
-            //mapFrag = (MapFragment)FragmentManager.FindFragmentById(Resource.Id.map);
-            // //map = mapFrag.GetMapAsync();
-            //map.MapType = GoogleMap.MapTypeNormal;
-            //map.MyLocationEnabled = true;
+           
 
 
             txtSearch.TextChanged += async delegate (object sender, Android.Text.TextChangedEventArgs e)
@@ -97,12 +86,10 @@ namespace App10
 
         async void AutoCompleteOption_Click(object sender, AdapterView.ItemClickEventArgs e)
         {
-            //to soft keyboard hide
             try
             {
                 InputMethodManager inputManager = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
                 inputManager.HideSoftInputFromWindow(txtSearch.WindowToken, HideSoftInputFlags.NotAlways);
-               //map.Clear();
                 if (txtSearch.Text != string.Empty)
                 {
                     var sb = new StringBuilder();
@@ -114,7 +101,6 @@ namespace App10
                         Toast.MakeText(this, "Unable to connect to server!!!", ToastLength.Short).Show();
 
                     }
-                    // below used single quote to avoid html interpretation
                     GoogleMapPlaceAPI.GeoCodeJSONClass objGeoCodeJSONClass = JsonConvert.DeserializeObject<GoogleMapPlaceAPI.GeoCodeJSONClass>(strResult);
                     LatLng Position = new LatLng(objGeoCodeJSONClass.results[0].geometry.location.lat, objGeoCodeJSONClass.results[0].geometry.location.lng);
                     updateCameraPosition(Position);
@@ -126,9 +112,6 @@ namespace App10
 
                 throw;
             }
-
-
-           
 
         }
 
@@ -145,9 +128,6 @@ namespace App10
         }
         void updateCameraPosition(LatLng pos)
         {
-          
-
-
             CameraPosition.Builder builder = CameraPosition.InvokeBuilder();
             builder.Target(pos);
             builder.Zoom(14);
@@ -165,7 +145,6 @@ namespace App10
             try
             {
                 strResultData = await webclient.DownloadStringTaskAsync(new Uri(strUri));
-                // Console.WriteLine(strResultData);
                
             }
             catch(Exception ex)
@@ -191,6 +170,4 @@ namespace App10
             this.map = googleMap;
         }
     }
-
-
-    }
+}
