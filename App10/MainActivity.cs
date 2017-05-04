@@ -21,6 +21,7 @@ using System.Net.Http;
 using Geolocator.Plugin.Abstractions;
 using RestSharp;
 using System.Threading;
+using Com.Squareup.Picasso;
 
 namespace App10
 {
@@ -36,8 +37,11 @@ namespace App10
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-           
-                GoogleButton = (Button)FindViewById(Resource.Id.Autocomplete);
+            ImageView imageView = FindViewById<ImageView>(Resource.Id.imageView);
+            Picasso.With(this).Load("http://i.imgur.com/DvpvklR.jpg").Into(imageView);
+
+
+            GoogleButton = (Button)FindViewById(Resource.Id.Autocomplete);
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
             ClarfiaiBtn = (Button)FindViewById(Resource.Id.Clarifaibtn);

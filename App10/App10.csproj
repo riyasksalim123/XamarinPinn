@@ -84,6 +84,9 @@
       <HintPath>..\packages\NineOldAndroids.2.4.0\lib\MonoAndroid23\NineOldAndroids.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="References">
+      <HintPath>..\ReferenceLibrary\bin\Debug\References.dll</HintPath>
+    </Reference>
     <Reference Include="Refractored.Xam.TTS, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugins.TextToSpeech.1.0.2\lib\MonoAndroid10\Refractored.Xam.TTS.dll</HintPath>
       <Private>True</Private>
