@@ -25,7 +25,7 @@ using Com.Squareup.Picasso;
 
 namespace App10
 {
-    [Activity(Label = "", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "", MainLauncher = false, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         Button btn;
@@ -33,6 +33,7 @@ namespace App10
         ImageButton FbBtn;
         Button ClarfiaiBtn;
         Position position ;
+        Button CustomListbtn;
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -45,6 +46,8 @@ namespace App10
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
             ClarfiaiBtn = (Button)FindViewById(Resource.Id.Clarifaibtn);
+            CustomListbtn=(Button)FindViewById(Resource.Id.customlist);
+            CustomListbtn.Click += CustomListbtn_Click;
             ClarfiaiBtn.Click += ClarfiaiBtn_Click;
             FbBtn.Click += FbBtn_Click;
             btn.Click += delegate
@@ -67,14 +70,24 @@ namespace App10
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
 
-             position = await locator.GetPositionAsync(timeoutMilliseconds: 10000);
+             position = await locator.GetPositionAsync(timeoutMilliseconds: 1000000000);
 
 
-            AlertCenter.Default.PostMessage("Found Location", "Position Latitude: "+position.Latitude+" and Position Longitude : "+position.Longitude+"", Resource.Drawable.abc_btn_check_material);
+           AlertCenter.Default.PostMessage("Found Location", "Position Latitude: "+position.Latitude+" and Position Longitude : "+position.Longitude+"", Resource.Drawable.abc_btn_check_material);
 
             CrossTextToSpeech.Current.Speak("Your Current Latitude is " + position.Latitude);
             progressDialog.Hide();
 
+        }
+
+        private void CustomListbtn_Click(object sender, EventArgs e)
+        {
+            var activity2 = new Intent(this, typeof(CustomListActivity));
+            activity2.PutExtra("latitude", position.Latitude);
+            activity2.PutExtra("longitude", position.Longitude);
+            //activity2.PutExtra("latitude", 51.5033640);
+            //activity2.PutExtra("longitude", -0.1276250);
+            StartActivity(activity2);
         }
 
         private void ClarfiaiBtn_Click(object sender, EventArgs e)

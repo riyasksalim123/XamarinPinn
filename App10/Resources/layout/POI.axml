@@ -35,13 +35,18 @@
     <TextView
         android:layout_width="fill_parent"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="poi (when available)"
         android:id="@+id/poi"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="67.5dp" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar1" />
     <ListView
         android:id="@+id/ContactsListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
- 
 </LinearLayout>

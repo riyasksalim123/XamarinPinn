@@ -166,7 +166,9 @@
     <Compile Include="Adapter\ContactsAdapter.cs" />
     <Compile Include="Adapter\FacebookUser.cs" />
     <Compile Include="Adapter\GoogleMapClass.cs" />
+    <Compile Include="Adapter\HotDogAdapter.cs" />
     <Compile Include="ClarifaiActivity.cs" />
+    <Compile Include="CustomListActivity.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="FacebookActivity.cs" />
     <Compile Include="GeoCodeJSONClass.cs" />
@@ -196,6 +198,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Clarifai.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\HotDogListView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ColorfulLIst.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

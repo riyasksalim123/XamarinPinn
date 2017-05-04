@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using App10.Adapter;
 using System.Threading;
+using Android.Views.Animations;
 
 namespace App10
 {
@@ -30,32 +31,29 @@ namespace App10
     public class PointOfInterest : Activity
     {
 
-       // static readonly string TAG = "X:" + typeof(PointOfInterest).Name;
+     
         TextView _addressText;
         TextView poi;
-        //TextView location_text;
+       
         Button get_address_button;
         Button get_POI;
-        //Location _currentLocation;
-        //LocationManager _locationManager;
-        //Position p;
+     
         double lat;
         double longi;
-       // string _locationProvider;
-        TextView _locationText;
-       // LocationManager locMgr;
-       // string locationProvider;
-      //  private ProgressBar mProgressBar;
-
-
-
       
+        TextView _locationText;
+        // LocationManager locMgr;
+        // string locationProvider;
+        private ProgressBar mProgressBar;
+
+
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.POI);
-           // AppDomain.CurrentDomain.UnhandledException += ErrorHandler.CurrentDomainOnUnhandledException;
-           // TaskScheduler.UnobservedTaskException += ErrorHandler.TaskSchedulerOnUnobservedTaskException;
+        
             lat = Intent.GetDoubleExtra("latitude", 0.0);
             longi = Intent.GetDoubleExtra("longitude", 0.0);
             _addressText = FindViewById<TextView>(Resource.Id.address_text);
@@ -66,7 +64,7 @@ namespace App10
             get_POI = FindViewById<Button>(Resource.Id.get_POI);
             FindViewById<TextView>(Resource.Id.get_address_button).Click += AddressButton_OnClick;
             FindViewById<TextView>(Resource.Id.get_POI).Click += Vvvvvvvvv_Click;
-
+            mProgressBar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
 
 
         }
@@ -75,11 +73,18 @@ namespace App10
         {
             string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+ longi+"&types=point_of_interest&radius=100000&sensor=false&key=AIzaSyCrMlsuYQlYLpiwHDes4gsxJlu2IcoyJ7w";
 
-            var progressDialog = ProgressDialog.Show(this, "Please wait...", "Checking POI of the Location", true);
-            new Thread(new ThreadStart(delegate
-            {
+
+            AlphaAnimation AlphaAnimation = new AlphaAnimation(0f,1f);
+            AlphaAnimation.Duration = 200;
+            mProgressBar.Animation = AlphaAnimation;
+            mProgressBar.Visibility = Android.Views.ViewStates.Visible;
+
+
+            //var progressDialog = ProgressDialog.Show(this, "Please wait...", "Checking POI of the Location", true);
+            //new Thread(new ThreadStart(delegate
+            //{
                
-            })).Start();
+            //})).Start();
             Rootobject1 Data = await FetchWeatherAsync(url);
 
            
@@ -87,7 +92,12 @@ namespace App10
             var contactsAdapter = new StreamListAdapter(this, Data.results);
             var contactsListView = FindViewById<ListView>(Resource.Id.ContactsListView);
             contactsListView.Adapter = contactsAdapter;
-            progressDialog.Hide();
+            // progressDialog.Hide();
+            AlphaAnimation betaAnimation = new AlphaAnimation(0f, 1f);
+            betaAnimation.Duration = 200;
+            mProgressBar.Animation = betaAnimation;
+            mProgressBar.Visibility = Android.Views.ViewStates.Gone;
+
             _addressText.Visibility = ViewStates.Gone;
             _locationText.Visibility = ViewStates.Gone;
             get_address_button.Visibility= ViewStates.Gone;
