@@ -19,7 +19,7 @@ namespace App10
 
     public class GoogleAutoCompleate : Activity,IOnMapReadyCallback
     {
-
+        Button showlocationme;
         const string strAutoCompleteGoogleApi = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=";
         const string strGoogleApiKey = "AIzaSyAq1k0JIsGu8iEUdcjOjMt11c42x_t2WOo";
         const string strGeoCodingUrl = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -30,13 +30,18 @@ namespace App10
         string autoCompleteOptions;
         string[] strPredictiveText;
         int index = 0;
-
+        double lat;
+        double longi;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.AutoCompleateGoogle);
+            lat = Intent.GetDoubleExtra("latitude", 0.0);
+            longi = Intent.GetDoubleExtra("longitude", 0.0);
             txtSearch = (AutoCompleteTextView)FindViewById(Resource.Id.txtTextSearch);
+            showlocationme= (Button)FindViewById(Resource.Id.showlocationme);
+            showlocationme.Click += Showlocationme_Click;
             txtSearch.ItemClick += AutoCompleteOption_Click;
             txtSearch.Hint = "Enter source  ";
             MapsInitializer.Initialize(this);
@@ -74,6 +79,13 @@ namespace App10
 
             };
 
+        }
+
+        private void Showlocationme_Click(object sender, EventArgs e)
+        {
+            LatLng Position = new LatLng(lat,longi);
+            updateCameraPosition(Position);
+            MarkOnMap("I am Here !!", Position);
         }
 
         private void setUpMap()

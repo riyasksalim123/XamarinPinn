@@ -34,20 +34,23 @@ namespace App10
         Button ClarfiaiBtn;
         Position position ;
         Button CustomListbtn;
+        Button Mapintent;
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
             ImageView imageView = FindViewById<ImageView>(Resource.Id.imageView);
-            Picasso.With(this).Load("http://i.imgur.com/DvpvklR.jpg").Into(imageView);
+            Picasso.With(this).Load("https://support.apple.com/content/dam/edam/applecare/images/en_US/mac/macfamily-featured-promo-mac-family_2x.jpg").Into(imageView);
 
 
             GoogleButton = (Button)FindViewById(Resource.Id.Autocomplete);
             btn = (Button)FindViewById(Resource.Id.button1);
             FbBtn = (ImageButton)FindViewById(Resource.Id.FacebookButton);
             ClarfiaiBtn = (Button)FindViewById(Resource.Id.Clarifaibtn);
-            CustomListbtn=(Button)FindViewById(Resource.Id.customlist);
+            Mapintent = (Button)FindViewById(Resource.Id.mapintent);
+            CustomListbtn =(Button)FindViewById(Resource.Id.customlist);
             CustomListbtn.Click += CustomListbtn_Click;
+            Mapintent.Click += Mapintent_Click;
             ClarfiaiBtn.Click += ClarfiaiBtn_Click;
             FbBtn.Click += FbBtn_Click;
             btn.Click += delegate
@@ -80,6 +83,13 @@ namespace App10
 
         }
 
+        private void Mapintent_Click(object sender, EventArgs e)
+        {
+            Android.Net.Uri raylocationUri = Android.Net.Uri.Parse("geo:" + position.Latitude + "," + position.Longitude + "");
+            Intent Mapintent = new Intent(Intent.ActionView,raylocationUri);
+            StartActivity(Mapintent);
+        }
+
         private void CustomListbtn_Click(object sender, EventArgs e)
         {
             var activity2 = new Intent(this, typeof(CustomListActivity));
@@ -100,7 +110,8 @@ namespace App10
         private void GoogleButton_Click(object sender, EventArgs e)
         {
             var activity2 = new Intent(this, typeof(GoogleAutoCompleate));
-          
+            activity2.PutExtra("latitude", position.Latitude);
+            activity2.PutExtra("longitude", position.Longitude);
             StartActivity(activity2);
         }
 
